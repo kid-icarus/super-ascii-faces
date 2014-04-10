@@ -1,0 +1,19 @@
+{
+  "name": "super-ascii-faces",
+  "version": "0.0.0",
+  "description": "Ascii faces and taxonomy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Kois",
+  "license": "ISC",
+  "dependencies": {
+    "fortune": "~0.1.17",
+    "fortune-mongodb": "~0.1.9"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.18.2"
+  }
+}
