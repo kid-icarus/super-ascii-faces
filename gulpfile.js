@@ -13,6 +13,16 @@ var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
+var nodemon = require('gulp-nodemon')
+
+//Server - nodemon
+gulp.task('develop', function () {
+  nodemon({ script: 'index.js', ext: 'js'})
+    .on('change', ['lint'])
+    .on('restart', function () {
+      console.log('restarted!')
+    })
+})
 
 // Minify
 gulp.task('minify', function() {
