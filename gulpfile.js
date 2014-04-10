@@ -16,7 +16,7 @@ var livereload = require('gulp-livereload');
 
 // Lint
 gulp.task('lint', function() {
-    gulp.src('./js/*.js')
+    gulp.src('./app/js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
