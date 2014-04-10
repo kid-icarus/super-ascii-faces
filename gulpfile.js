@@ -18,7 +18,6 @@ var nodemon = require('gulp-nodemon')
 //Server - nodemon
 gulp.task('develop', function () {
   nodemon({ script: 'index.js', ext: 'js'})
-    .on('change', ['lint'])
     .on('restart', function () {
       console.log('restarted!')
     })
