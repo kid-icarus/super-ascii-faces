@@ -1,3 +1,3 @@
-window.addEventListener(function(e) {
+window.addEventListener('load', function(e) {
   window.alert('sup')
 })
