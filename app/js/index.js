@@ -1,3 +1,5 @@
 var smiley = require('./smiley')
 
-smiley()
+window.addEventListener('load', function(e) {
+  smiley.getTags()
+})

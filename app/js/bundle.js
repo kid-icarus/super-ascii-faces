@@ -2,18 +2,59 @@
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var smiley = require('./smiley')
 
-smiley()
+window.addEventListener('load', function(e) {
+  smiley.getTags()
+})
 
-}).call(this,require("/var/www/super-ascii-faces/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2115c6a8.js","/")
+}).call(this,require("/var/www/super-ascii-faces/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a5d74c10.js","/")
 },{"./smiley":2,"/var/www/super-ascii-faces/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":6,"buffer":3}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-function smiley(){
-  window.addEventListener('load', function(e) {
-    window.alert('sup')
+function Smiley(){
+  this.tags = []
+}
+
+Smiley.prototype.render = function() {
+  if (this.tags.length < 1) {
+    return
+  }
+
+  this.tags.forEach(function(tag) {
+    window.console.log(tag)
+    var listItem = document.createElement("li")
+    var link = document.createElement("a")
+    link.innerText = tag.name
+    link.href = '#'
+
+    listItem.appendChild(link)
+
+    link.addEventListener('click', function(e) {
+      e.preventDefault()
+    })
+
+    var menu = document.getElementById('menu')
+    menu.appendChild(listItem)
   })
 }
 
-module.exports = smiley
+
+Smiley.prototype.getTags = function() {
+  var req = new XMLHttpRequest()
+  var self = this
+
+  req.open('GET', 'http://localhost:1337/tags')
+
+  req.onload = function() {
+    if(req.status === 200) {
+      data = JSON.parse(req.responseText)
+      self.tags = data.tags
+      self.render()
+    }
+  }
+
+  req.send()
+}
+
+module.exports = new Smiley()
 
 }).call(this,require("/var/www/super-ascii-faces/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/smiley.js","/")
 },{"/var/www/super-ascii-faces/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":6,"buffer":3}],3:[function(require,module,exports){
