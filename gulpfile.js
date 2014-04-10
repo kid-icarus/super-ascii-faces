@@ -14,13 +14,6 @@ var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
 
-// Lint
-gulp.task('lint', function() {
-    gulp.src('./app/js/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
-
 // Minify
 gulp.task('minify', function() {
   gulp.src('./app/*.html')
@@ -42,15 +35,12 @@ gulp.task('minify', function() {
 
 // JavaScripts
 gulp.task('js', function() {
-  gulp.src('./app/js/main.js')
+  gulp.src('./app/js/index.js')
     .pipe(browserify({
       insertGlobals : true,
-      transform: ['node-underscorify'],
       extensions: ['.html']
     }))
     .on('error', function(err) {
-      console.log('JS crash and burn:')
-      console.log(err.toString());
       this.emit('end');
     })
     .pipe(rename('bundle.js'))
@@ -67,11 +57,6 @@ gulp.task('compass', function() {
       image: 'app/img',
       require: ['singularitygs', 'breakpoint']
     }))
-    .on('error', function(err) {
-      console.log('Compass crash and burn')
-      console.log(err.toString());
-      this.emit('end');
-    })
     .pipe(gulp.dest('app/css'))
     .pipe(livereload());
 });
@@ -86,11 +71,11 @@ gulp.task('watch', function() {
   gulp.watch('./app/tpl/*.html', function(evt) {
       server.changed(evt.path);
   });
-  gulp.watch('./app/js/*.js', ['js', 'lint']);
+  gulp.watch('./app/js/*.js', ['js']);
   gulp.watch('./app/sass/*.scss', ['compass']);
   gulp.watch('./app/sass/**/*.scss', ['compass']);
 });
 
-gulp.task('default', ['compass', 'js', 'lint', 'watch']);
+gulp.task('default', ['compass', 'js', 'watch']);
 
 gulp.task('build', ['minify'])

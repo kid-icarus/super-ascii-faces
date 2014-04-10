@@ -1,3 +1,3 @@
-window.addEventListener('load', function(e) {
-  window.alert('sup')
-})
+var smiley = require('./smiley')
+
+smiley()
